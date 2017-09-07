@@ -3,10 +3,11 @@ CFLAGS=-I .
 FLAGS=-g -Wall -std=c99
 LDFLAGS=-lpthread
 TARGET=prbl3
-OBJS=linked_list.o thread.o main.o
+OBJS=prbl3_main.o linked_list.o thread.o lock.o
 
 $(TARGET):$(OBJS) 
-	$(CC) $(FLAGS) -o $(MIPS32_TARGET) $(OBJS) $(CFLAGS) $(LDFLAGS) 
+	$(CC) $(FLAGS) -o $(TARGET) $(OBJS) $(CFLAGS) $(LDFLAGS) 
+
 .c.o:
 	$(CC) $(FLAGS) $(CFLAGS) -o $@ -c $<
 clean:

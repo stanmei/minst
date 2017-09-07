@@ -1,18 +1,34 @@
-#if 0
+/*
+ * This code refer to: http://www.geeksforgeeks.org/linked-list-set-2-inserting-a-node/
+ *
+ */
 #include "linked_list.h"
 #include <malloc.h>
 
-void atomic_list_append(struct node ** head, int value){
+void append(struct node** head_ref, int new_data){
     
+    struct node* new_node = (struct node*) malloc(sizeof(struct node));
+    new_node->data = new_data;
+    new_node->next = NULL;
+
+    if( *head_ref == NULL ){
+        *head_ref = new_node;
+        return;
+    }
+    
+    struct node* last = *head_ref;
+    while(last->next != NULL)
+        last = last->next;
+
+    last->next = new_node;
+    
+    return;
 }
 
-void insert(struct node** headRef, int newData){
-    struct node* newNode = (struct node*)malloc(sizeof(struct node));
-    
-    if(newNode){
-        newNode->data = newData;
-        newNode->next = *headRef;
-        *headRef = newNode;
-    }
+void printList(struct node* node){
+    while(node != NULL){
+        printf( "%d ", node->data );
+        node = node->next;
+    }    
+    printf("\n");
 }
-#endif

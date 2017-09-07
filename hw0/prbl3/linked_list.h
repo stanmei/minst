@@ -3,5 +3,5 @@ struct node{
     struct node* next;
 };
 
-void Append(struct node** aRef, struct node** bRef);
-void Push(struct node** headRef, int newData);
+void append(struct node** head_ref, int new_data);
+void printList(struct node* node);

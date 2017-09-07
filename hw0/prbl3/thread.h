@@ -6,6 +6,6 @@
 #include <time.h>
 
 void* thread_function(void *arg);
-int create_and_run_thread(void);
+int create_thread(void);
 void run_thread(void);
 
