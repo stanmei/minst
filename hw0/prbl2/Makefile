@@ -1,8 +1,8 @@
-MIPSCC=mips64-linux-gnuabi64-gcc
+MIPSCC=mips-linux-gnu-gcc
 CFLAGS=-c
 ASFLAGS=-S
 FLAGS=-g -Wall -static 
-MIPS64_TARGET=mips64_linked_list
+MIPS64_TARGET=mips32_linked_list
 OBJS=linked_list_main.o linked_list_push.o linked_list_append.o
 
 $(MIPS64_TARGET): $(OBJS)

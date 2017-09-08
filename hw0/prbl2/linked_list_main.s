@@ -1,9 +1,9 @@
 	.file	1 "linked_list_main.c"
-	.section .mdebug.abi64
+	.section .mdebug.abi32
 	.previous
 	.nan	legacy
-	.module	fp=64
-	.module	oddspreg
+	.module	fp=xx
+	.module	nooddspreg
 	.abicalls
 	.text
 	.align	2
@@ -13,76 +13,74 @@
 	.ent	main
 	.type	main, @function
 main:
-	.frame	$fp,64,$31		# vars= 32, regs= 3/0, args= 0, gp= 0
-	.mask	0xd0000000,-8
+	.frame	$fp,48,$31		# vars= 16, regs= 2/0, args= 16, gp= 8
+	.mask	0xc0000000,-4
 	.fmask	0x00000000,0
 	.set	noreorder
+	.cpload	$25
 	.set	nomacro
-	daddiu	$sp,$sp,-64
-	sd	$31,56($sp)
-	sd	$fp,48($sp)
-	sd	$28,40($sp)
+	addiu	$sp,$sp,-48
+	sw	$31,44($sp)
+	sw	$fp,40($sp)
 	move	$fp,$sp
-	lui	$28,%hi(%neg(%gp_rel(main)))
-	daddu	$28,$28,$25
-	daddiu	$28,$28,%lo(%neg(%gp_rel(main)))
-	sd	$0,8($fp)
-	sd	$0,16($fp)
+	.cprestore	16
+	sw	$0,28($fp)
+	sw	$0,32($fp)
 	li	$2,1			# 0x1
-	sw	$2,0($fp)
-	b	.L2
+	sw	$2,24($fp)
+	b	$L2
 	nop
 
-.L3:
-	lw	$3,0($fp)
-	daddiu	$2,$fp,8
-	move	$5,$3
+$L3:
+	addiu	$2,$fp,28
+	lw	$5,24($fp)
 	move	$4,$2
-	ld	$2,%call16(Push)($28)
+	lw	$2,%call16(Push)($28)
 	move	$25,$2
 	.reloc	1f,R_MIPS_JALR,Push
 1:	jalr	$25
 	nop
 
-	lw	$3,0($fp)
+	lw	$28,16($fp)
+	lw	$3,24($fp)
 	move	$2,$3
 	sll	$2,$2,1
-	addu	$2,$2,$3
-	move	$3,$2
-	daddiu	$2,$fp,16
+	addu	$3,$2,$3
+	addiu	$2,$fp,32
 	move	$5,$3
 	move	$4,$2
-	ld	$2,%call16(Push)($28)
+	lw	$2,%call16(Push)($28)
 	move	$25,$2
 	.reloc	1f,R_MIPS_JALR,Push
 1:	jalr	$25
 	nop
 
-	lw	$2,0($fp)
+	lw	$28,16($fp)
+	lw	$2,24($fp)
 	addiu	$2,$2,1
-	sw	$2,0($fp)
-.L2:
-	lw	$2,0($fp)
+	sw	$2,24($fp)
+$L2:
+	lw	$2,24($fp)
 	slt	$2,$2,4
-	bne	$2,$0,.L3
+	bne	$2,$0,$L3
 	nop
 
-	daddiu	$3,$fp,16
-	daddiu	$2,$fp,8
+	addiu	$3,$fp,32
+	addiu	$2,$fp,28
 	move	$5,$3
 	move	$4,$2
-	ld	$2,%call16(Append)($28)
+	lw	$2,%call16(Append)($28)
 	move	$25,$2
 	.reloc	1f,R_MIPS_JALR,Append
 1:	jalr	$25
 	nop
 
+	lw	$28,16($fp)
 	move	$2,$0
 	move	$sp,$fp
-	ld	$31,56($sp)
-	ld	$fp,48($sp)
-	ld	$28,40($sp)
-	daddiu	$sp,$sp,64
+	lw	$31,44($sp)
+	lw	$fp,40($sp)
+	addiu	$sp,$sp,48
 	jr	$31
 	nop
 
