@@ -1,31 +1,41 @@
-MIPSCC=mips-linux-gnu-gcc
+MIPSCC=mips64-linux-gnuabi64-gcc
 CFLAGS=-c
 ASFLAGS=-S
-FLAGS=-g -Wall 
-MIPS32_TARGET=test_mips32
-OBJS=linked_list_test.o linked_list_push.o linked_list_append.o
-#SRC=linked_list.c linked_list_test.c
+FLAGS=-g -Wall -static 
+MIPS64_TARGET=mips64_linked_list
+OBJS=linked_list_main.o linked_list_push.o linked_list_append.o
 
-$(MIPS32_TARGET): $(OBJS)
-	$(MIPSCC) $(FLAGS) $(OBJS) -o $(MIPS32_TARGET) 
+$(MIPS64_TARGET): $(OBJS)
+	$(MIPSCC) $(FLAGS) $(OBJS) -o $(MIPS64_TARGET) 
 
-linked_list.o:linked_list.s
-	$(MIPSCC) $(CFLAGS) linked_list.s
+linked_list_push.o:linked_list_push.s
+	$(MIPSCC) $(CFLAGS) linked_list_push.s
 
-linked_list_test.o:linked_list_test.s
-	$(MIPSCC) $(CFLAGS) linked_list_test.s
+linked_list_append.o:linked_list_append.s
+	$(MIPSCC) $(CFLAGS) linked_list_append.s
 
-linked_list.s:linked_list.i
-	$(MIPSCC) $(ASFLAGS) linked_list.i -o linked_list.s
+linked_list_main.o:linked_list_main.s
+	$(MIPSCC) $(CFLAGS) linked_list_main.s
 
-linked_list_test.s:linked_list_test.i
-	$(MIPSCC) $(ASFLAGS) linked_list_test.i -o linked_list_test.s
 
-linked_list.i:linked_list.c
-	$(MIPSCC) -E linked_list.c -o linked_list.i
+linked_list_push.s:linked_list_push.i
+	$(MIPSCC) $(ASFLAGS) linked_list_push.i -o linked_list_push.s
 
-linked_list_test.i:linked_list_test.c
-	$(MIPSCC) -E linked_list_test.c -o linked_list_test.i
+linked_list_append.s:linked_list_append.i
+	$(MIPSCC) $(ASFLAGS) linked_list_append.i -o linked_list_append.s
+
+linked_list_main.s:linked_list_main.i
+	$(MIPSCC) $(ASFLAGS) linked_list_main.i -o linked_list_main.s
+
+
+linked_list_push.i:linked_list_push.c
+	$(MIPSCC) -E linked_list_push.c -o linked_list_push.i
+
+linked_list_append.i:linked_list_append.c
+	$(MIPSCC) -E linked_list_append.c -o linked_list_append.i
+
+linked_list_main.i:linked_list_main.c
+	$(MIPSCC) -E linked_list_main.c -o linked_list_main.i
 
 #.S.o:
 #	$(MIPSCC) $(ASFLAGS) -o $@ -c $< 
@@ -33,8 +43,8 @@ linked_list_test.i:linked_list_test.c
 #.c.o:
 #	$(MIPSCC) $(CFLAGS) -o $@ -c $<
 
-#$(MIPS32_TARGET): $(OBJS)
+#$(MIPS64_TARGET): $(OBJS)
 #	$(MIPSCC) $(FLAGS) -o $@ $^
 
 clean:
-	rm -rf *.o *.i *.s $(MIPS32_TARGET)
+	rm -rf *.o *.i *.s $(MIPS64_TARGET)

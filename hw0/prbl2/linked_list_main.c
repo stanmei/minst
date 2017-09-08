@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include "linked_list.h"
+#include "linked_list_append.h"
+#include "linked_list_push.h"
 
 int main(){
     struct node* aList = NULL;
