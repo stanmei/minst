@@ -3,7 +3,7 @@ CFLAGS=-c
 ASFLAGS=-S
 FLAGS=-g -Wall 
 MIPS32_TARGET=test_mips32
-OBJS=linked_list.o linked_list_test.o
+OBJS=linked_list_test.o linked_list_push.o linked_list_append.o
 #SRC=linked_list.c linked_list_test.c
 
 $(MIPS32_TARGET): $(OBJS)
