@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="a75afb61-a22e-404a-b921-a29aef44c170" name="Google_Huahandsome" url="http://35.184.9.32">
+        <fileTransfer host="35.184.9.32" port="22" privateKey="$USER_HOME$/.ssh/id_rsa_for_google_cloud_shuai" rootFolder="/home/huahandsome" accessType="SFTP" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
